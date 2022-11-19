@@ -8,7 +8,7 @@
         <title>Scrolling Nav - Start Bootstrap Template</title>
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="./static/css/styles.css" rel="stylesheet" />
+        <link href="/static/css/styles.css" rel="stylesheet" />
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -28,14 +28,14 @@
         <!-- Header-->
         <header class="bg-primary bg-gradient text-white">
             <div class="container px-4 text-center">
-                <h1 class="fw-bolder">Blackrock personal reccomender</h1>
-                <p class="lead">Type in the username, then see its reccomendations</p>
-                <form action= "{% url 'index' %}" method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                </form>                
+                <h1 class="fw-bolder">Results</h1>              
             </div>
         </header>
+        <ul class="list-group">
+        {% for tweet in tweets %}
+        <li class="list-group-item">{{ tweet }}</li>
+        {% endfor %}
+        </ul>
         <!-- About section-->
         <section id="about">
             <div class="container px-4">
@@ -65,11 +65,6 @@
             </div>
         </section>
         <!-- Contact section-->
-            <ul>
-            {% for tweet in tweets %}
-              <li>{{ tweet }}</li>
-            {% endfor %}
-            </ul>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container px-4"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
