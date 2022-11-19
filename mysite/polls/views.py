@@ -79,6 +79,17 @@ def predictSentiment(text):
     else:
         return "negative"
 
+def predictCategory(text):
+    model = pickle.load(open(HERE / 'c.sav', 'rb'))
+
+    cat = model.predict(text)
+
+    map = pickle.load(open(HERE / 'm.sav', 'rb'))
+
+    return map[cat]
+
+    
+
 # def keyextract(text):
 #     kw_extractor = yake.KeywordExtractor()
 #     language = "en"

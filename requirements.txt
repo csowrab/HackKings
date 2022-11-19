@@ -89,3 +89,4 @@ snscrape
 seaborn
 nltk
 wordcloud
+pandas_profiling
