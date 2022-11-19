@@ -77,6 +77,10 @@
         </section>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
+          <form action="sent" method="POST">
+         {% csrf_token %}
+          <input type="submit" name="SA" value="SentimentalAnalyers" class="btn btn-success">
+           </form>
             <div class="container px-4"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
         </footer>
         <!-- Bootstrap core JS-->

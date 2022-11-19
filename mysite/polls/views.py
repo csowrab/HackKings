@@ -3,6 +3,15 @@ from django.views import View
 from .scrape import get_tweet
 from .forms import SearchForm
 from django.http import HttpResponseRedirect
+import tensorflow as tf
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+import pickle
+
+from pathlib import Path
+
+HERE = Path(__file__).parent
+
 
 
 """class Index(View):
@@ -46,3 +55,35 @@ def InputWebView(requests):
         if form.is_valid():
             request.session['web_input'] = request.POST['web_input']
             return redirect('add_web')
+
+        return render(request, self.template)
+
+def predictSentiment(text):
+    max_length = 100
+    trunc_type = 'post'
+    padding_type = 'post'
+
+    tokenizer = pickle.load(open(HERE / 't.sav', 'rb'))
+    model = tf.keras.models.load_model(HERE / 'SA.h5')
+
+    sequences = tokenizer.texts_to_sequences(text)
+    padded = pad_sequences(sequences, maxlen=max_length, padding=padding_type, truncating=trunc_type)
+
+    result = model.predict(padded)[0][0]
+    if result >= 0.5:
+        return "positive"
+    else:
+        return "negative"
+
+
+
+def models(request):
+
+    sentence = 'default sentence'
+
+    if request.GET.get('sentence'):
+        sentence = request.GET.get('sentence')
+
+    result = predictSentiment(sentence)
+
+    return render(request, 'result.html', {'result':result})
