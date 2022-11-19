@@ -20,5 +20,6 @@ from polls import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.get_username, name='index'),
-    
+    path('result/<str:username>', views.result, name='result'),
+
 ]
