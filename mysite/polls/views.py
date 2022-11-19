@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from .scrape import get_tweet
 from .forms import SearchForm
+from django.http import HttpResponseRedirect
 import tensorflow as tf
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
@@ -22,22 +23,31 @@ HERE = Path(__file__).parent
         return render(request, self.template, {'form':form})"""
 
 def get_username(request):
-    # if this is a POST request we need to process the form data
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
         form = SearchForm(request.POST)
-        # check whether it's valid:
+        
+        print(form.errors)
+        
         if form.is_valid():
+            username = form.cleaned_data.get("username")
+            print("Cleaned username: ", username)
             # process the data in form.cleaned_data as required
             # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
+            # redirect to a new URL:        
+            return HttpResponseRedirect('/result/' + username)
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = SearchForm()
 
     return render(request, 'index.html', {'form': form})
+
+def result(request,username):
+    name = username
+
+    tweets = get_tweet(username,100)
+
+    return render(request, 'result.html', {'tweets': tweets})
 
 def InputWebView(requests):
     form = WebInputForm(request.POST or None)

@@ -10,3 +10,5 @@ def get_tweet(username, number_of_tweets):
         tweets.append([tweet.content])
 
     return tweets
+
+print(get_tweet("csowrab",100))
