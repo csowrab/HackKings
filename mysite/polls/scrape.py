@@ -10,6 +10,3 @@ def get_tweet(username, number_of_tweets):
         tweets.append([tweet.content])
 
     return tweets
-
-# pip3 install git+https://github.com/JustAnotherArchivist/snscrape.git
- 

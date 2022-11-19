@@ -19,5 +19,6 @@ from polls import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.Index.as_view(), name='index')
+    path('', views.get_username, name='index'),
+    
 ]

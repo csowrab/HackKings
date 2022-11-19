@@ -30,10 +30,11 @@
             <div class="container px-4 text-center">
                 <h1 class="fw-bolder">Blackrock personal reccomender</h1>
                 <p class="lead">Type in the username, then see its reccomendations</p>
-                <div class="input-group">
-                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                    <button type="button" class="btn btn-outline-primary">search</button>
-                  </div>
+                <form action= "{% url 'index' %}" method="post">
+                    {% csrf_token %}
+                    <label form="username">Enter a username</label>
+                    <input id="username" type="text">
+                </form>                
             </div>
         </header>
         <!-- About section-->
